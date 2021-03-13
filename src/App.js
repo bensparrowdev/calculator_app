@@ -4,18 +4,25 @@ import { evaluate } from 'mathjs';
 
 class App extends Component {
   state = {
-    screen: [],
+    screen: ["0"],
   };
 
   inputHandle = (val) => {
-    let newScreen = this.state.screen
-    newScreen.push(val)
+    let newScreen = [...this.state.screen, val]
+    if (newScreen[0] == "0"){
+      newScreen.shift()
+    }
     this.setState( {screen: newScreen} )
   }
 
   handleSubmit = () => {
     let evalStr = this.state.screen.join("")
     let output = evaluate(evalStr)
+    this.setState({screen: [output] })
+  }
+
+  handleClear = () => {
+    this.setState({ screen: ["0"]})
   }
 
   render() {
@@ -27,12 +34,11 @@ class App extends Component {
         </div>
         
         <div className="buttons">
-          <CalcButton number="AC" clickFunction={this.inputHandle} />
+          <button onClick={this.handleClear}>AC</button>
           <CalcButton number="*" clickFunction={this.inputHandle} />
           <CalcButton number="/" clickFunction={this.inputHandle} />
           <CalcButton number="-" clickFunction={this.inputHandle} />
           <CalcButton number="+" clickFunction={this.inputHandle} />
-          <CalcButton number="=" clickFunction={this.inputHandle} />
           <CalcButton number="." clickFunction={this.inputHandle} />
           <CalcButton number="0" clickFunction={this.inputHandle} />
           <CalcButton number="1" clickFunction={this.inputHandle} />
@@ -44,7 +50,8 @@ class App extends Component {
           <CalcButton number="7" clickFunction={this.inputHandle} />
           <CalcButton number="8" clickFunction={this.inputHandle} />
           <CalcButton number="9" clickFunction={this.inputHandle} />
-          <button></button>
+
+          <button onClick={this.handleSubmit}>=</button>
         </div>
       </div>
     )
