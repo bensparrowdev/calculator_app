@@ -48,7 +48,7 @@ class App extends Component {
   render() {
     return (
       <div className="main">
-        <h1>Calculator App</h1>
+        <h1></h1>
         <div className="calculator">
           <div className="screen">
             <h2>{this.state.screen}</h2>
